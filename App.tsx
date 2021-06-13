@@ -8,15 +8,8 @@
  * @format
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  useColorScheme,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, useColorScheme} from 'react-native';
 
 import * as eva from '@eva-design/eva';
 import {
@@ -24,85 +17,63 @@ import {
   Button,
   Divider,
   Layout,
-  Text,
   TopNavigation,
+  List,
+  ListItem,
+  Input,
 } from '@ui-kitten/components';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [data, setData] = useState([
+    {
+      title: 'Todo 1',
+      done: false,
+    },
+    {
+      title: 'Todo 2',
+      done: false,
+    },
+    {
+      title: 'Todo 3',
+      done: false,
+    },
+  ]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const [newTodo, setNewTodo] = useState('');
+
+  const addTodo = () => {
+    if (newTodo.length) {
+      setData([...data, {title: newTodo, done: false}]);
+      setNewTodo('');
+    }
   };
+
+  const renderItem: List['props']['renderItem'] = ({item}) => (
+    <ListItem title={item.title} />
+  );
 
   return (
     <ApplicationProvider {...eva} theme={isDarkMode ? eva.dark : eva.light}>
       <SafeAreaView style={{flex: 1}}>
-        <TopNavigation title="Home" alignment="center" />
+        <TopNavigation title="Sample App" alignment="center" />
         <Divider />
-        <Layout
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text category="h1">Sample App</Text>
-          <Button onPress={() => console.log('pressed')}>OPEN DETAILS</Button>
+        <List style={{flex: 1}} data={data} renderItem={renderItem} />
+        <Layout style={{flexDirection: 'row', padding: 10}}>
+          <Input
+            style={{flexGrow: 1}}
+            size="large"
+            placeholder="Large"
+            value={newTodo}
+            onChangeText={setNewTodo}
+          />
+          <Button onPress={addTodo} style={{marginLeft: 10}}>
+            +
+          </Button>
         </Layout>
       </SafeAreaView>
     </ApplicationProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
