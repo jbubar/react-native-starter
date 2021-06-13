@@ -14,10 +14,19 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
+
+import * as eva from '@eva-design/eva';
+import {
+  ApplicationProvider,
+  Button,
+  Divider,
+  Layout,
+  Text,
+  TopNavigation,
+} from '@ui-kitten/components';
 
 import {
   Colors,
@@ -63,33 +72,17 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <ApplicationProvider {...eva} theme={isDarkMode ? eva.dark : eva.light}>
+      <SafeAreaView style={{flex: 1}}>
+        <TopNavigation title="Home" alignment="center" />
+        <Divider />
+        <Layout
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text category="h1">Sample App</Text>
+          <Button onPress={() => console.log('pressed')}>OPEN DETAILS</Button>
+        </Layout>
+      </SafeAreaView>
+    </ApplicationProvider>
   );
 };
 
