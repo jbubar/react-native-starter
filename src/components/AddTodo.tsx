@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {StyleSheet} from 'react-native';
-import firebase from 'firebase/app';
 
 import {Input, Layout, Button} from '@ui-kitten/components';
 
-import {Config} from 'react-native-config';
-const {SINGLE_LIST_ID} = Config;
+import {TodoContext} from '../context/Todos';
 
 const styles = StyleSheet.create({
   inputRow: {flexDirection: 'row', padding: 10},
@@ -14,27 +12,13 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
+  const {addTodo} = useContext(TodoContext);
   const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = async () => {
-    if (newTodo.length) {
-      try {
-        await firebase
-          .firestore()
-          .collection('todoLists')
-          .doc(SINGLE_LIST_ID)
-          .collection('todos')
-          .add({
-            description: newTodo,
-            done: false,
-          });
-
-        setNewTodo('');
-      } catch ({message}) {
-        console.error(message);
-      }
-    }
-  };
+  const submit = useCallback(async () => {
+    await addTodo(newTodo);
+    setNewTodo('');
+  }, [addTodo, newTodo]);
 
   return (
     <Layout style={styles.inputRow}>
@@ -44,8 +28,10 @@ export default () => {
         placeholder="Add a todo..."
         value={newTodo}
         onChangeText={setNewTodo}
+        onSubmitEditing={submit}
+        testID="todoInput"
       />
-      <Button onPress={addTodo} style={styles.addButton}>
+      <Button onPress={submit} style={styles.addButton} testID="addButton">
         +
       </Button>
     </Layout>
