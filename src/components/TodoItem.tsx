@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
   },
+  date: {marginRight: 10},
+  overdue: {color: 'red'},
+  descriptionRow: {flexDirection: 'row'},
 });
 
 export default ({item}: {item: Todo}) => {
@@ -29,11 +32,11 @@ export default ({item}: {item: Todo}) => {
       )}
       description={() =>
         date ? (
-          <Layout style={{flexDirection: 'row'}}>
-            <Text style={[done && styles.strikethrough, {marginRight: 10}]}>
+          <Layout style={styles.descriptionRow}>
+            <Text style={[done && styles.strikethrough, styles.date]}>
               {formatDistance(date.toDate(), new Date(), {addSuffix: true})}
             </Text>
-            <Text style={[done && styles.strikethrough, {color: 'red'}]}>
+            <Text style={[done && styles.strikethrough, styles.overdue]}>
               {compareAsc(date.toDate(), new Date()) < 1 ? 'OVERDUE' : ''}
             </Text>
           </Layout>

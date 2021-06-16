@@ -5,15 +5,16 @@ import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 
 import TodosProvider from './context/Todos';
-import DetailsModal from './components/DetailsModal';
+import ListsProvider from './context/Lists';
 
 const TodoListScreen = () => (
-  <TodosProvider>
-    <DetailsModal />
-    <Navbar title="Todos Interview" />
-    <TodoList />
-    <AddTodo />
-  </TodosProvider>
+  <ListsProvider>
+    <TodosProvider>
+      <Navbar />
+      <TodoList />
+      <AddTodo />
+    </TodosProvider>
+  </ListsProvider>
 );
 
 export default TodoListScreen;

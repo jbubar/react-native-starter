@@ -1,7 +1,14 @@
-import React, {createContext, useState, useCallback} from 'react';
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import firebase from 'firebase/app';
 
 import {useCollectionData} from 'react-firebase-hooks/firestore';
+import {ListContext} from './Lists';
 
 export type Todo = {
   id: string;
@@ -30,13 +37,19 @@ export const TodoContext = createContext({
 });
 
 const TodoProvider: React.FC = ({children}) => {
+  const {selectedList} = useContext(ListContext);
+
   const [selectedTodo, setSelected] = useState(null);
 
-  const TodosCollection = firebase
-    .firestore()
-    .collection('todoLists')
-    .doc('1')
-    .collection('todos');
+  const TodosCollection = useMemo(
+    () =>
+      firebase
+        .firestore()
+        .collection('todoLists')
+        .doc(selectedList ? selectedList.id : '1')
+        .collection('todos'),
+    [selectedList],
+  );
 
   const [todos, isLoading, error] = useCollectionData(TodosCollection, {
     idField: 'id',

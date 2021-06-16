@@ -7,7 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-import TodoListScreen from './src/TodoListScreen';
+import MainScreen from './src/MainScreen';
 import * as eva from '@eva-design/eva';
 
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
@@ -28,7 +28,7 @@ const App = () => {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.flex}>
-            <TodoListScreen />
+            <MainScreen />
           </KeyboardAvoidingView>
         </SafeAreaView>
       </ApplicationProvider>

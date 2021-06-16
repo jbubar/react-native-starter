@@ -1,5 +1,6 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
+
 import {
   Button,
   Card,
@@ -10,6 +11,7 @@ import {
   Layout,
   Modal,
 } from '@ui-kitten/components';
+
 import {TodoContext} from '../context/Todos';
 
 const TrashIcon = props => <Icon {...props} name="trash-2-outline" />;
@@ -63,7 +65,6 @@ export default () => {
             label="Todo"
             style={styles.input}
             size="large"
-            placeholder="Large"
             value={inputValue}
             onChangeText={setInput}
             onSubmitEditing={saveAndClose}
