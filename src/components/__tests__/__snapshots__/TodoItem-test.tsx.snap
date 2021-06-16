@@ -18,7 +18,7 @@ exports[`TodoItem Snapshot - Done 1`] = `
   >
     <View
       accessible={true}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -184,7 +184,7 @@ exports[`TodoItem Snapshot - Incomplete 1`] = `
   >
     <View
       accessible={true}
-      focusable={false}
+      focusable={true}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}

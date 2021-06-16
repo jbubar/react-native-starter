@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   CheckBox,
+  Datepicker,
   Icon,
   Input,
   Layout,
@@ -12,6 +13,7 @@ import {
 import {TodoContext} from '../context/Todos';
 
 const TrashIcon = props => <Icon {...props} name="trash-2-outline" />;
+const CalendarIcon = props => <Icon {...props} name="calendar" />;
 
 export default () => {
   const {selectedTodo, setSelected, saveTodo, deleteTodo} =
@@ -19,10 +21,12 @@ export default () => {
 
   const [inputValue, setInput] = useState('');
   const [checked, setChecked] = useState(false);
+  const [date, setDate] = useState(null);
   useEffect(() => {
     if (selectedTodo) {
       setInput(selectedTodo.description);
       setChecked(selectedTodo.done);
+      selectedTodo.date && setDate(selectedTodo.date.toDate());
     }
   }, [selectedTodo]);
 
@@ -30,17 +34,17 @@ export default () => {
 
   const saveAndClose = useCallback(async () => {
     try {
-      const {id, done, description} = selectedTodo;
+      const {id, done, description, date: todoDate} = selectedTodo;
 
-      if (inputValue !== description || checked !== done) {
-        await saveTodo({id, description: inputValue, done: checked});
+      if (inputValue !== description || checked !== done || todoDate !== date) {
+        await saveTodo({id, description: inputValue, done: checked, date});
       }
 
       closeModal();
     } catch (e) {
       console.error(e);
     }
-  }, [selectedTodo, inputValue, checked, closeModal, saveTodo]);
+  }, [selectedTodo, inputValue, checked, date, closeModal, saveTodo]);
 
   const deleteAndClose = useCallback(async () => {
     try {
@@ -64,6 +68,18 @@ export default () => {
             onChangeText={setInput}
             onSubmitEditing={saveAndClose}
           />
+
+          <Layout style={styles.checkboxRow}>
+            <Datepicker
+              label="Due Date"
+              placeholder="Pick Date"
+              date={date}
+              onSelect={nextDate => setDate(nextDate)}
+              accessoryRight={CalendarIcon}
+              style={styles.flex}
+            />
+          </Layout>
+
           <Layout style={styles.checkboxRow}>
             <CheckBox checked={checked} onChange={setChecked}>
               Done?

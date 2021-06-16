@@ -7,6 +7,7 @@ export type Todo = {
   id: string;
   description: string;
   done: boolean;
+  date?: Date;
 };
 
 const defaultState = {
@@ -69,9 +70,13 @@ const TodoProvider: React.FC = ({children}) => {
   );
 
   const saveTodo = useCallback(
-    async ({id, description, done}: Todo) => {
+    async ({id, description, done, date}: Todo) => {
       try {
-        await TodosCollection.doc(id).update({description, done});
+        await TodosCollection.doc(id).update({
+          description,
+          done,
+          date: firebase.firestore.Timestamp.fromDate(date),
+        });
       } catch (e) {
         console.error(e);
       }
