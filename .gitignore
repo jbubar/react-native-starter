@@ -60,6 +60,3 @@ buck-out/
 
 # Eslint
 .eslintcache
-
-# react-native-config
-.env

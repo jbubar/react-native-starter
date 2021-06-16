@@ -9,12 +9,6 @@ import TodoItem from '../TodoItem';
 import {MockedProvider} from '../../context/Todos';
 import {waitFor} from '@testing-library/react-native';
 
-jest.mock('react-native-config', () => ({
-  Config: {
-    SINGLE_LIST_ID: '1',
-  },
-}));
-
 describe('TodoItem', () => {
   let wrapper, toggleDone;
 

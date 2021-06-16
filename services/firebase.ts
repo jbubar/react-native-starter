@@ -1,26 +1,22 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import {Platform} from 'react-native';
 
-import {Config} from 'react-native-config';
+const config = {
+  apiKey: 'AIzaSyCMoApbCmvr3_uL2yGZoZ7UcU24h0rhlgU',
+  authDomain: 'interview-todos.firebaseapp.com',
+  projectId: 'interview-todos',
+  storageBucket: 'interview-todos.appspot.com',
+  messagingSenderId: '598035300081',
+  appId: '1:598035300081:web:dc63e598fe7998b2f5f350',
+  measurementId: 'G-QY9P3TP4PH',
+};
 
-const {
-  FIREBASE_API_KEY: apiKey,
-  FIREBASE_AUTH_DOMAIN: authDomain,
-  FIREBASE_PROJECT_ID: projectId,
-  FIREBASE_STORAGE_BUCKET: storageBucket,
-  FIREBASE_MESSAGING_SENDER_ID: messagingSenderId,
-  FIREBASE_APP_ID: appId,
-  FIREBASE_MEASUREMENT_ID: measurementId,
-} = Config;
+console.log(config);
 
-firebase.initializeApp({
-  apiKey,
-  authDomain,
-  projectId,
-  storageBucket,
-  messagingSenderId,
-  appId,
-  measurementId,
-});
+firebase.initializeApp(config);
 
-firebase.firestore();
+// Experimental Long Polling Open Issue - https://github.com/firebase/firebase-js-sdk/issues/1674
+firebase
+  .firestore()
+  .settings({experimentalForceLongPolling: Platform.OS === 'android'});

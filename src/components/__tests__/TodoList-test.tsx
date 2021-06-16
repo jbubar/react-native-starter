@@ -6,12 +6,6 @@ import 'firebase/firestore';
 import TodoList from '../TodoList';
 import {MockedProvider} from '../../context/Todos';
 
-jest.mock('react-native-config', () => ({
-  Config: {
-    SINGLE_LIST_ID: '1',
-  },
-}));
-
 describe('TodoList', () => {
   let wrapper, data;
 

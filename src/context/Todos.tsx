@@ -2,9 +2,7 @@
 import React, {createContext, useState, useCallback} from 'react';
 import firebase from 'firebase/app';
 
-import {Config} from 'react-native-config';
 import {useCollectionData} from 'react-firebase-hooks/firestore';
-const {SINGLE_LIST_ID} = Config;
 
 export type Todo = {
   id: string;
@@ -29,26 +27,25 @@ export const TodoContext = createContext({
 
 const TodoProvider: React.FC = ({children}) => {
   const [data, isLoading, error] = useCollectionData(
-    firebase
-      .firestore()
-      .collection('todoLists')
-      .doc(SINGLE_LIST_ID)
-      .collection('todos'),
+    firebase.firestore().collection('todoLists').doc('1').collection('todos'),
     {idField: 'id'},
   );
 
   const addTodo = useCallback(async newTodo => {
     if (newTodo.length) {
       try {
+        console.log('add');
         await firebase
           .firestore()
           .collection('todoLists')
-          .doc(SINGLE_LIST_ID)
+          .doc('1')
           .collection('todos')
           .add({
             description: newTodo,
             done: false,
           });
+
+        console.log('done');
       } catch ({message}) {
         console.error(message);
       }
@@ -60,7 +57,7 @@ const TodoProvider: React.FC = ({children}) => {
       await firebase
         .firestore()
         .collection('todoLists')
-        .doc(SINGLE_LIST_ID)
+        .doc('1')
         .collection('todos')
         .doc(id)
         .update({done: !done});
