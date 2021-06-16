@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {createContext, useState, useCallback} from 'react';
 import firebase from 'firebase/app';
 
@@ -11,12 +10,16 @@ export type Todo = {
 };
 
 const defaultState = {
-  data: [],
+  todos: [],
+  selectedTodo: null,
 };
 
 const defaultActions = {
   addTodo: async (_newTodo: string) => {},
-  toggleDone: async (todo: Todo) => {},
+  toggleDone: async (_todo: Todo) => {},
+  saveTodo: async (_todo: Todo) => {},
+  deleteTodo: async (_todo: Todo) => {},
+  setSelected: (_todo: Todo) => {},
 };
 
 export const TodoContext = createContext({
@@ -26,49 +29,80 @@ export const TodoContext = createContext({
 });
 
 const TodoProvider: React.FC = ({children}) => {
-  const [data, isLoading, error] = useCollectionData(
-    firebase.firestore().collection('todoLists').doc('1').collection('todos'),
-    {idField: 'id'},
-  );
+  const [selectedTodo, setSelected] = useState(null);
 
-  const addTodo = useCallback(async newTodo => {
-    if (newTodo.length) {
-      try {
-        console.log('add');
-        await firebase
-          .firestore()
-          .collection('todoLists')
-          .doc('1')
-          .collection('todos')
-          .add({
+  const TodosCollection = firebase
+    .firestore()
+    .collection('todoLists')
+    .doc('1')
+    .collection('todos');
+
+  const [todos, isLoading, error] = useCollectionData(TodosCollection, {
+    idField: 'id',
+  });
+
+  const addTodo = useCallback(
+    async newTodo => {
+      if (newTodo.length) {
+        try {
+          await TodosCollection.add({
             description: newTodo,
             done: false,
           });
-
-        console.log('done');
-      } catch ({message}) {
-        console.error(message);
+        } catch ({message}) {
+          console.error(message);
+        }
       }
-    }
-  }, []);
+    },
+    [TodosCollection],
+  );
 
-  const toggleDone = useCallback(async ({id, done}: Todo) => {
-    try {
-      await firebase
-        .firestore()
-        .collection('todoLists')
-        .doc('1')
-        .collection('todos')
-        .doc(id)
-        .update({done: !done});
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+  const toggleDone = useCallback(
+    async ({id, done}: Todo) => {
+      try {
+        await TodosCollection.doc(id).update({done: !done});
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [TodosCollection],
+  );
+
+  const saveTodo = useCallback(
+    async ({id, description, done}: Todo) => {
+      try {
+        await TodosCollection.doc(id).update({description, done});
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [TodosCollection],
+  );
+
+  const deleteTodo = useCallback(
+    async ({id}: Todo) => {
+      try {
+        await TodosCollection.doc(id).delete();
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [TodosCollection],
+  );
 
   return (
     <TodoContext.Provider
-      value={{data, isLoading, error: error?.message, addTodo, toggleDone}}
+      value={{
+        todos,
+        isLoading,
+        error: error?.message,
+        addTodo,
+        toggleDone,
+        selectedTodo,
+        setSelected,
+        saveTodo,
+        deleteTodo,
+      }}
       children={children}
     />
   );

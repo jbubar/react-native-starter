@@ -16,7 +16,7 @@ service cloud.firestore {
         allow list: if true;
         allow create: if notEmptyTodo() && isNewTodo();
         allow update: if notEmptyTodo();
-        allow delete: if false;
+        allow delete: if true;
       }
     }
   }

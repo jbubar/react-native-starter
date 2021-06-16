@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const {data} = useContext(TodoContext);
+  const {todos} = useContext(TodoContext);
 
   return (
     <List
       style={styles.fullList}
-      data={data}
+      data={todos}
       renderItem={props => <TodoItem {...props} />}
       ItemSeparatorComponent={Divider}
     />

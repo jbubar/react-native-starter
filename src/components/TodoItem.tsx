@@ -14,10 +14,11 @@ const styles = StyleSheet.create({
 });
 
 export default ({item}: {item: Todo}) => {
-  const {toggleDone} = useContext(TodoContext);
+  const {toggleDone, setSelected} = useContext(TodoContext);
 
   return (
     <ListItem
+      onPress={() => setSelected(item)}
       testID="todoItem"
       title={() => (
         <Text key={item.id} style={[item.done && styles.strikethrough]}>
