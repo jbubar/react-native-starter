@@ -7,10 +7,6 @@ import TodoItem from './TodoItem';
 
 import {TodoContext} from '../context/Todos';
 
-const styles = StyleSheet.create({
-  fullList: {flex: 1},
-});
-
 export default () => {
   const {todos} = useContext(TodoContext);
 
@@ -26,3 +22,7 @@ export default () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  fullList: {flex: 1},
+});

@@ -46,7 +46,7 @@ const TodoProvider: React.FC = ({children}) => {
       firebase
         .firestore()
         .collection('todoLists')
-        .doc(selectedList ? selectedList.id : '1')
+        .doc(selectedList.id)
         .collection('todos'),
     [selectedList],
   );

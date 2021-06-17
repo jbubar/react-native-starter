@@ -5,12 +5,6 @@ import {Input, Layout, Button} from '@ui-kitten/components';
 
 import {TodoContext} from '../context/Todos';
 
-const styles = StyleSheet.create({
-  inputRow: {flexDirection: 'row', padding: 10},
-  messageInput: {flex: 1},
-  addButton: {marginLeft: 10},
-});
-
 export default () => {
   const {addTodo} = useContext(TodoContext);
   const [newTodo, setNewTodo] = useState('');
@@ -37,3 +31,9 @@ export default () => {
     </Layout>
   );
 };
+
+const styles = StyleSheet.create({
+  inputRow: {flexDirection: 'row', padding: 10},
+  messageInput: {flex: 1},
+  addButton: {marginLeft: 10},
+});

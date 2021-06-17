@@ -44,7 +44,138 @@ exports[`Navbar Snapshot 1`] = `
             "zIndex": 1,
           }
         }
-      />
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "marginHorizontal": 8,
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "transform": Array [
+                  Object {
+                    "scale": 1,
+                  },
+                ],
+              }
+            }
+          >
+            <RNSVGSvgView
+              align="xMidYMid"
+              bbHeight={24}
+              bbWidth={24}
+              fill="#222B45"
+              focusable={false}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "height": 24,
+                    "tintColor": "#222B45",
+                    "width": 24,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 24,
+                    "width": 24,
+                  },
+                ]
+              }
+              vbHeight={24}
+              vbWidth={24}
+            >
+              <RNSVGGroup
+                fill={4280429381}
+                propList={
+                  Array [
+                    "fill",
+                  ]
+                }
+              >
+                <RNSVGGroup>
+                  <RNSVGGroup>
+                    <RNSVGRect
+                      height="24"
+                      matrix={
+                        Array [
+                          -1,
+                          1.2246467991473532e-16,
+                          -1.2246467991473532e-16,
+                          -1,
+                          24,
+                          24,
+                        ]
+                      }
+                      opacity={0}
+                      width="24"
+                      x={0}
+                      y={0}
+                    />
+                    <RNSVGCircle
+                      cx="4"
+                      cy="7"
+                      r="1"
+                    />
+                    <RNSVGCircle
+                      cx="4"
+                      cy="12"
+                      r="1"
+                    />
+                    <RNSVGCircle
+                      cx="4"
+                      cy="17"
+                      r="1"
+                    />
+                    <RNSVGRect
+                      height="2"
+                      rx=".94"
+                      ry=".94"
+                      width="14"
+                      x="7"
+                      y="11"
+                    />
+                    <RNSVGRect
+                      height="2"
+                      rx=".94"
+                      ry=".94"
+                      width="14"
+                      x="7"
+                      y="16"
+                    />
+                    <RNSVGRect
+                      height="2"
+                      rx=".94"
+                      ry=".94"
+                      width="14"
+                      x="7"
+                      y="6"
+                    />
+                  </RNSVGGroup>
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+        </View>
+      </View>
       <View
         style={
           Object {

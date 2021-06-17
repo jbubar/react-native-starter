@@ -12,6 +12,7 @@
     "postinstall": "pod install --project-directory=ios"
   },
   "dependencies": {
+    "@ui-kitten/components": "^5.1.0",
     "@ui-kitten/eva-icons": "^5.1.0",
     "date-fns": "^2.22.1",
     "firebase": "^8.6.7",
@@ -29,7 +30,6 @@
     "@types/jest": "^26.0.23",
     "@types/react-native": "^0.64.5",
     "@types/react-test-renderer": "^16.9.2",
-    "@ui-kitten/components": "^5.1.0",
     "babel-jest": "^26.6.3",
     "eslint": "^7.28.0",
     "husky": ">=6",

@@ -1,4 +1,4 @@
-import React, {createContext, useState, useCallback} from 'react';
+import React, {createContext, useState, useCallback, useEffect} from 'react';
 import firebase from 'firebase/app';
 
 import {useCollectionData} from 'react-firebase-hooks/firestore';
@@ -25,13 +25,18 @@ export const ListContext = createContext({
 });
 
 const ListProvider: React.FC = ({children}) => {
-  const [selectedList, selectList] = useState(null);
+  const [selectedList, selectList] = useState({});
 
   const ListsCollection = firebase.firestore().collection('todoLists');
 
   const [lists, isLoading, error] = useCollectionData(ListsCollection, {
     idField: 'id',
   });
+  useEffect(() => {
+    if (lists) {
+      selectList(lists[0]);
+    }
+  }, [lists]);
 
   const addList = useCallback(
     async ({name}) => {

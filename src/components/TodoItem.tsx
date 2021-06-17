@@ -6,17 +6,6 @@ import {ListItem, Icon, Text, Layout} from '@ui-kitten/components';
 
 import {Todo, TodoContext} from '../context/Todos';
 
-const styles = StyleSheet.create({
-  icon: {margin: 0},
-  strikethrough: {
-    textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid',
-  },
-  date: {marginRight: 10},
-  overdue: {color: 'red'},
-  descriptionRow: {flexDirection: 'row'},
-});
-
 export default ({item}: {item: Todo}) => {
   const {id, done, date, description} = item;
   const {toggleDone, setSelected} = useContext(TodoContext);
@@ -55,3 +44,14 @@ export default ({item}: {item: Todo}) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {margin: 0},
+  strikethrough: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
+  date: {marginRight: 10},
+  overdue: {color: 'red'},
+  descriptionRow: {flexDirection: 'row'},
+});
